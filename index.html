@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Track App</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="navbar">
+      <h2>Track App</h2>
+      <div class="menu">
+        <a href="#" onclick="showSection('dashboard')">Dashboard</a>
+        <a href="#" onclick="showSection('expenses')">Expenses</a>
+        <a href="#" onclick="showSection('budget')">Budget</a>
+      </div>
+    </div>
+
+    <div class="content">
+      <div id="dashboard" class="section active">
+        <h3>Dashboard</h3>
+        <div class="dashboard-metrics">
+          <div class="card">
+            <h4>Total Spent</h4>
+            <p>$<span id="total-spent">0</span></p>
+          </div>
+          <div class="card">
+            <h4>Total Available Budget</h4>
+            <p>$<span id="total-budget">0</span></p>
+          </div>
+        </div>
+        <h4>Last 3 Expenses</h4>
+        <div id="last-expenses-container"></div>
+        <button class="btn" onclick="showAddForm()">Add Expense</button>
+      </div>
+
+      <div id="expenses" class="section">
+        <h3>Expenses by Category</h3>
+        <div class="sort-container">
+          <input
+            type="text"
+            id="search-input"
+            placeholder="Search expenses..."
+            oninput="searchExpenses()"
+          />
+          <select id="sort-criteria">
+            <option value="title">Title</option>
+            <option value="cost">Cost</option>
+            <option value="date">Date</option>
+          </select>
+          <button class="btn" onclick="sortExpenses()">Sort</button>
+        </div>
+
+        <div id="expense-cards-container"></div>
+      </div>
+
+      <div id="budget" class="section">
+        <h3>Update Budget</h3>
+        <form id="budget-form" onsubmit="updateBudget(event)">
+          <div class="budget-form-group">
+            <select id="budget-category" required>
+              <option value="" disabled selected>Select Category</option>
+            </select>
+            <input
+              type="number"
+              placeholder="New Budget Limit"
+              id="budget-limit"
+              required
+              min="0"
+            />
+          </div>
+          <div class="button-group">
+            <button type="submit" class="btn">Update Budget</button>
+            <button
+              class="btn btn-add-category"
+              onclick="showAddCategoryForm()"
+            >
+              Add Expense Category
+            </button>
+          </div>
+        </form>
+        <div id="budget-list"></div>
+      </div>
+    </div>
+
+    <div id="add-expense-form" class="modal">
+      <div class="modal-content">
+        <h3>Add Expense</h3>
+        <form onsubmit="addExpense(event)">
+          <input type="text" id="expense-title" placeholder="Title" required />
+          <select id="expense-category" required></select>
+          <input type="number" id="expense-cost" placeholder="Cost" required />
+          <button type="submit">Add</button>
+          <button type="button" onclick="hideAddForm()">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal-overlay" onclick="hideAddForm()"></div>
+
+    <div id="add-category-form" class="modal">
+      <div class="modal-content">
+        <h3>Add Expense Category</h3>
+        <form onsubmit="addCategory(event)">
+          <input
+            type="text"
+            id="new-category-name"
+            placeholder="Category Name"
+            required
+          />
+          <input
+            type="number"
+            id="new-category-limit"
+            placeholder="Budget Limit"
+            required
+            min="0"
+          />
+          <button type="submit">Add</button>
+          <button type="button" onclick="hideAddCategoryForm()">Cancel</button>
+        </form>
+      </div>
+    </div>
+
+    <div
+      class="modal-overlay"
+      id="add-expense-backdrop"
+      onclick="hideAddForm()"
+    ></div>
+
+    <div
+      class="modal-overlay"
+      id="add-category-backdrop"
+      onclick="hideAddCategoryForm()"
+    ></div>
+
+    <script src="script.js"></script>
+  </body>
+</html>

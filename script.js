@@ -137,12 +137,12 @@ function sortExpenses() {
     }
   });
 
-  renderExpenses(); 
+  renderExpenses();
 }
 
 function renderBudget() {
   const budgetList = document.getElementById("budget-list");
-  budgetList.innerHTML = ""; 
+  budgetList.innerHTML = "";
 
   budgets.forEach((budget) => {
     const totalExpense = expenses
@@ -195,8 +195,8 @@ function addCategory(event) {
 
   budgets.push({ name: categoryName, limit: categoryLimit });
   saveToLocalStorage();
-  populateDropdowns(); 
-  renderBudget(); 
+  populateDropdowns();
+  renderBudget();
   hideAddCategoryForm();
 }
 
@@ -231,7 +231,6 @@ function renderExpenses(filteredExpenses = expenses) {
     expenseContainer.appendChild(card);
   });
 }
-
 
 function editExpense(title) {
   const expenseToEdit = expenses.find((expense) => expense.title === title);
@@ -270,16 +269,15 @@ function updateExpense(event, expenseToEdit) {
 function deleteExpense(title) {
   const index = expenses.findIndex((expense) => expense.title === title);
   if (index !== -1) {
-    expenses.splice(index, 1); 
+    expenses.splice(index, 1);
     saveToLocalStorage();
     renderDashboard();
     renderExpenses();
     renderBudget();
   }
-}s
+}
 
 populateDropdowns();
 renderDashboard();
 renderExpenses();
 renderBudget();
-
